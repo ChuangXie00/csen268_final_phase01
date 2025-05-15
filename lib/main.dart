@@ -4,12 +4,12 @@ import 'router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'model/user.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
 
-  Hive.registerAdapter(UserAdapter());  // 注册user.g.dart生成的adapter
-  await Hive.openBox<User>('users');    // 打开User数据的box
+  Hive.registerAdapter(UserAdapter()); // 注册user.g.dart生成的adapter
+  await Hive.openBox<User>('users'); // 打开User数据的box
 
   runApp(const MyApp());
 }
@@ -17,15 +17,58 @@ void main() async{
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
       routerConfig: appRouter, // router.dart中定义的GoRouter
+      theme: ThemeData(
+        scaffoldBackgroundColor: const Color(0xFF2B2B2B), // 深色背景
+        primaryColor: const Color(0xFFFFA500),            // 橙色主色调
+        cardColor: const Color(0xFF3C3C3C),               // 卡片背景
+
+        textTheme: const TextTheme(
+          titleLarge: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+          bodyLarge: TextStyle(fontSize: 16, color: Colors.white),
+          bodyMedium: TextStyle(fontSize: 14, color: Colors.white70),
+          bodySmall: TextStyle(fontSize: 12, color: Color(0xFFB0B0B0)),
+        ),
+
+        inputDecorationTheme: const InputDecorationTheme(
+          filled: true,
+          fillColor: Color(0xFF2C2C2C),
+          labelStyle: TextStyle(color: Color(0xFFB0B0B0)),
+          border: OutlineInputBorder(),
+        ),
+
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Color(0xFFFFA500),
+            foregroundColor: Colors.black,
+            textStyle: const TextStyle(fontWeight: FontWeight.bold),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+          ),
+        ),
+
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(foregroundColor: Color(0xFFFFA500)),
+        ),
+
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color(0xFF2B2B2B),
+          elevation: 0,
+          titleTextStyle: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+          iconTheme: IconThemeData(color: Colors.white),
+        ),
+      ),
     );
   }
 }

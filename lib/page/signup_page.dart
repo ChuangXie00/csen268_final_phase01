@@ -25,6 +25,12 @@ class _SignupPageState extends State<SignupPage> {
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
         username: _usernameController.text.trim(),
+        // 注册时以下字段默认为""或0或0.0
+        gender: "", 
+        weight: 0.0,
+        height: 0.0,
+        age: 0,
+        purpose: "",
       );
       await _userRepo.registerUser(user);
       context.go('/welcome'); // 注册成功 -> Welcome Page

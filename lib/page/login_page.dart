@@ -24,7 +24,11 @@ class _LoginPageState extends State<LoginPage> {
 
     final user = await _userRepo.loginUser(email, password);
     if (user != null) {
-      context.go('/welcome'); // 登录成功 -> Welcome Page
+      if (user.gender.isEmpty || user.purpose.isEmpty) {
+        context.go('/welcome'); // 登录成功但无信息 -> Welcome Page
+      } else {
+        context.go('/home');    // 登录成功且信息完整 -> Home Page
+      }
     } else {
       setState(() {
         _error = 'Invalid email or password';
