@@ -59,7 +59,7 @@ class HomePage extends StatelessWidget {
               ),
               const SizedBox(height: 12),
 
-              // ✅ 卡片推荐列表
+              // 推荐卡片列表
               ...recommendations.map((item) => WorkoutCard(
                     title: item['title']!,
                     description: item['desc']!,

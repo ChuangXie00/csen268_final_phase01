@@ -22,4 +22,18 @@ class HiveUserRepositoryImpl implements UserRepository{
     return null;
   }
 
+  @override
+  Future<User?> getCurrentUser() async {
+    final box = await Hive.openBox('userBox');
+    final email = box.get('currentUserEmail');
+    if (email == null) return null;
+
+    final userList = box.values.whereType<User>().toList();
+    try {
+      return userList.firstWhere((u) => u.email == email);
+    } catch (_) {
+      return null;
+    }
+  }
+
 }
