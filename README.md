@@ -1,16 +1,32 @@
 # csen268_final_phase01
 
-A new Flutter project.
+A mobile fitness app developed using Flutter.
 
-## Getting Started
+## 📸 Screenshots
 
-This project is a starting point for a Flutter application.
+| Page            | Screenshot                                      |
+|-----------------|--------------------------------------------------|
+| Login Page      | ![Login](assets/screenshots/login_page.png)     |
+| Signup Page     | ![Signup](assets/screenshots/signup_page.png)   |
+| Welcome Page    | ![Welcome](assets/screenshots/welcome_page.png) |
+| Home Page       | ![Home](assets/screenshots/home_page.png)       |
+| Log Page        | ![Log](assets/screenshots/log_page.png)         |
+| Personal Info   | ![Info](assets/screenshots/personal_info_page.png) |
+| Select Workout  | ![Select](assets/screenshots/select_workout_card.png) |
+| Start Workout   | ![Start](assets/screenshots/start_workout_page.png) |
+| End Workout     | ![End](assets/screenshots/end_workout_page.png) |
 
-A few resources to get you started if this is your first Flutter project:
+---
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## 📁 Project Structure
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+lib/
+├── component/ # Reusable UI widgets (dropdowns, textfields, buttons)
+├── cubit/ # All Cubit state logic
+├── model/ # Hive-compatible data models (User, Workout, Goal)
+├── page/ # Main UI pages (Login, Home, LogPage, etc.)
+├── repository/ # Abstracted data sources
+├── router.dart # GoRouter-based route setup
+└── main.dart # Entry point
+
+---
