@@ -22,11 +22,17 @@ A mobile fitness app developed using Flutter.
 
 lib/
 ├── component/ # Reusable UI widgets (dropdowns, textfields, buttons)
+
 ├── cubit/ # All Cubit state logic
+
 ├── model/ # Hive-compatible data models (User, Workout, Goal)
+
 ├── page/ # Main UI pages (Login, Home, LogPage, etc.)
+
 ├── repository/ # Abstracted data sources
+
 ├── router.dart # GoRouter-based route setup
+
 └── main.dart # Entry point
 
 ---
