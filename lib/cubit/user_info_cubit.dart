@@ -8,6 +8,10 @@ import 'user_info_state.dart';
 class UserInfoCubit extends Cubit<UserInfoState> {
   UserInfoCubit() : super(const UserInfoState());
 
+  // 未来UI支持修改名字和邮箱（可选）
+  void setName(String name) => emit(state.copyWith(name: name));
+  void setEmail(String email) => emit(state.copyWith(email: email));
+
   void setGender(String gender) {
     emit(state.copyWith(gender: gender));
   }
@@ -54,5 +58,10 @@ class UserInfoCubit extends Cubit<UserInfoState> {
     } catch (e) {
       emit(state.copyWith(isSubmitting: false, error: e.toString()));
     }
+  }
+
+  Future<void> logout() async {
+    final box = await Hive.openBox('userBox');
+    await box.delete('currentUserEmail');
   }
 }
