@@ -24,7 +24,6 @@ class PersonalInfoPage extends StatelessWidget {
     );
     final ageController = TextEditingController(text: state.age.toString());
 
-
     return Scaffold(
       backgroundColor: const Color(0xFF2B2B2B),
       appBar: AppBar(
@@ -58,12 +57,12 @@ class PersonalInfoPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    state.name.isEmpty ? 'User' : state.name,
+                    state.name.isEmpty ? 'cxie2' : state.name,
                     style: const TextStyle(fontSize: 18, color: Colors.white),
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    state.email.isEmpty ? 'email@example.com' : state.email,
+                    state.email.isEmpty ? 'cxie2@scu.edu' : state.email,
                     style: const TextStyle(fontSize: 14, color: Colors.grey),
                   ),
                 ],
@@ -88,14 +87,14 @@ class PersonalInfoPage extends StatelessWidget {
               label: 'Weight (kg)',
               controller: weightController,
               keyboardType: TextInputType.number,
-              onChanged: cubit.setAge,
+              onChanged: cubit.setWeight,
             ),
             const SizedBox(height: 12),
             AppTextField(
               label: 'Height (cm)',
               controller: heightController,
               keyboardType: TextInputType.number,
-              onChanged: cubit.setWeight,
+              onChanged: cubit.setHeight,
             ),
             const SizedBox(height: 20),
             Text(
@@ -108,7 +107,7 @@ class PersonalInfoPage extends StatelessWidget {
             Wrap(
               spacing: 8.0,
               children:
-                  ['build strength', 'maintain healthy life']
+                  ['lmprove Physique', 'Improve Mood', 'Maintain Healthy Life']
                       .map(
                         (option) => SelectableTagButton(
                           label: option,

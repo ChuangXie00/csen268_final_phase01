@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 
 class UserInfoState extends Equatable {
-  final String name;         // ✅ 新增
-  final String email;        // ✅ 新增
+  final String name;
+  final String email;        
   final String? gender;
   final Set<String> purposes;
   final double weight;
@@ -13,7 +13,7 @@ class UserInfoState extends Equatable {
   final String? error;
 
   const UserInfoState({
-    this.name = '',                // ✅ 默认值
+    this.name = '',                
     this.email = '',
     this.gender,
     this.purposes = const {},
@@ -26,7 +26,7 @@ class UserInfoState extends Equatable {
   });
 
   UserInfoState copyWith({
-    String? name,                 // ✅ copyWith 新增字段
+    String? name,                 // copyWith 新增字段
     String? email,
     String? gender,
     Set<String>? purposes,
