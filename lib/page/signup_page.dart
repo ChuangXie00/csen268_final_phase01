@@ -1,77 +1,94 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../model/user.dart';
-import '../repository/user_repository.dart';
-import '../repository/hive_user_repository_impl.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
 
   @override
-  State<SignupPage> createState() => _SignupPageState();
+  State<SignupPage> createState() => _SignUpPageState();
 }
 
-class _SignupPageState extends State<SignupPage> {
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final _usernameController = TextEditingController();
-  final UserRepository _userRepo = HiveUserRepositoryImpl();
-
-  String? _error;
-
-  Future<void> _handleSignup() async {
-    try {
-      final user = User(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
-        username: _usernameController.text.trim(),
-        // 注册时以下字段默认为""或0或0.0
-        gender: "", 
-        weight: 0.0,
-        height: 0.0,
-        age: 0,
-        purpose: "",
-      );
-      await _userRepo.registerUser(user);
-      context.go('/welcome'); // 注册成功 -> Welcome Page
-    } catch (e) {
-      setState(() {
-        _error = e.toString().replaceAll('Exception:', '').trim();
-      });
-    }
-  }
+class _SignUpPageState extends State<SignupPage> {
+  String? name;
+  String? email;
+  String? password;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Sign Up')),
+      appBar: AppBar(title: Text("Signup"), centerTitle: true),
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(20),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TextField(
-              controller: _usernameController,
-              decoration: const InputDecoration(labelText: 'Username'),
-            ),
-            TextField(
-              controller: _emailController,
-              decoration: const InputDecoration(labelText: 'Email'),
-            ),
-            TextField(
-              controller: _passwordController,
-              decoration: const InputDecoration(labelText: 'Password'),
-              obscureText: true,
-            ),
-            if (_error != null)
-              Text(_error!, style: const TextStyle(color: Colors.red)),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: _handleSignup,
-              child: const Text('Register'),
-            ),
-            TextButton(
-              onPressed: () => context.go('/'),
-              child: const Text('Already have an account? Login'),
+            Form(
+              child: Column(
+                children: [
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      labelText: "Name",
+                      hintText: "Name",
+                    ),
+                    validator: (value) {
+                      // Also you can use value.trim() to avoid full of spaces...
+                      if (value == null ||
+                          value.isEmpty ||
+                          value.trim() == "") {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
+                      name = value;
+                    },
+                  ),
+                  SizedBox(height: 15),
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      labelText: "Email",
+                      hintText: "Email",
+                    ),
+                    validator: (value) {
+                      // Also you can use value.trim() to avoid full of spaces...
+                      if (value == null ||
+                          value.isEmpty ||
+                          value.trim() == "") {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
+                      email = value;
+                    },
+                  ),
+                  SizedBox(height: 15),
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      labelText: "Password",
+                      hintText: "Password",
+                    ),
+                    validator: (value) {
+                      // Also you can use value.trim() to avoid full of spaces...
+                      if (value == null ||
+                          value.isEmpty ||
+                          value.trim() == "") {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
+                      password = value;
+                    },
+                  ),
+                  SizedBox(height: 30),
+                  ElevatedButton(onPressed: () {}, child: Text("Signup")),
+                  TextButton(
+                    onPressed: () => context.go('/'),
+                    child: const Text('Already have an account? Login'),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

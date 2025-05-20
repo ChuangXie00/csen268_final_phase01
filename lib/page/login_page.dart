@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../model/user.dart';
-import '../repository/user_repository.dart';
-import '../repository/hive_user_repository_impl.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -12,54 +10,75 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final UserRepository _userRepo = HiveUserRepositoryImpl();
-
   String? _error;
-
-  Future<void> _handleLogin() async {
-    final email = _emailController.text.trim();
-    final password = _passwordController.text.trim();
-
-    final user = await _userRepo.loginUser(email, password);
-    if (user != null) {
-      if (user.gender.isEmpty || user.purpose.isEmpty) {
-        context.go('/welcome'); // 登录成功但无信息 -> Welcome Page
-      } else {
-        context.go('/home');    // 登录成功且信息完整 -> Home Page
-      }
-    } else {
-      setState(() {
-        _error = 'Invalid email or password';
-      });
-    }
-  }
+  String? email;
+  String? password;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Login')),
+      appBar: AppBar(title: const Text('Login'), centerTitle: true),
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(20),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TextField(
-              controller: _emailController,
-              decoration: const InputDecoration(labelText: 'Email'),
-            ),
-            TextField(
-              controller: _passwordController,
-              decoration: const InputDecoration(labelText: 'Password'),
-              obscureText: true,
-            ),
-            if (_error != null)
-              Text(_error!, style: const TextStyle(color: Colors.red)),
-            const SizedBox(height: 16),
-            ElevatedButton(onPressed: _handleLogin, child: const Text('Login')),
-            TextButton(
-              onPressed: () => context.go('/signup'),
-              child: const Text('Don\'t have an account? Sign up'),
+            Form(
+              child: Column(
+                children: [
+                  SizedBox(height: 15),
+                  TextFormField(
+                    cursorColor: Color(0xFFFF9100),
+                    decoration: const InputDecoration(
+                      labelText: "Email",
+                      hintText: "Email",
+                    ),
+                    validator: (value) {
+                      // Also you can use value.trim() to avoid full of spaces...
+                      if (value == null ||
+                          value.isEmpty ||
+                          value.trim() == "") {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
+                      email = value;
+                    },
+                  ),
+                  SizedBox(height: 15),
+                  TextFormField(
+                    cursorColor: Color(0xFFFF9100),
+                    decoration: const InputDecoration(
+                      labelText: "Password",
+                      hintText: "Password",
+                    ),
+                    validator: (value) {
+                      // Also you can use value.trim() to avoid full of spaces...
+                      if (value == null ||
+                          value.isEmpty ||
+                          value.trim() == "") {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
+                      password = value;
+                    },
+                  ),
+                  SizedBox(height: 30),
+                  // if (_error != null)
+                  //   Text(_error!, style: const TextStyle(color: Colors.red)),
+                  ElevatedButton(
+                    onPressed: () => context.go('/home'),
+                    child: Text("Login"),
+                  ),
+                  TextButton(
+                    onPressed: () => context.go('/signup'),
+                    child: const Text('Don\'t have an account? Sign up'),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
