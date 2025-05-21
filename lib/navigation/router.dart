@@ -2,7 +2,9 @@ import 'package:csen268_final_phase01/bloc/authentication_bloc.dart';
 import 'package:csen268_final_phase01/model/workout.dart';
 import 'package:csen268_final_phase01/page/home_page.dart';
 import 'package:csen268_final_phase01/page/log_page.dart';
+import 'package:csen268_final_phase01/page/personal_info_page.dart';
 import 'package:csen268_final_phase01/page/start_workout_page.dart';
+import 'package:csen268_final_phase01/page/welcome_page.dart';
 import 'package:csen268_final_phase01/utilities/stream_to_listenable.dart';
 import 'package:csen268_final_phase01/widgets/scaffold_with_nav_bar.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +23,8 @@ class RouteName {
   static const endWorkout = 'endWorkout';
   static const signup = 'signup';
   static const login = 'login';
+  static const welcome = 'welcome';
+  static const personalInfo = 'personalInfo';
 }
 
 final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>(
@@ -57,6 +61,16 @@ GoRouter router(dynamic authenticationBloc) {
         },
       ),
       GoRoute(
+        path: '/signup',
+        name: RouteName.signup,
+        builder: (context, state) => const SignupPage(),
+      ),
+      GoRoute(
+        path: '/welcome',
+        name: RouteName.welcome,
+        builder: (context, state) => const WelcomePage(),
+      ),
+      GoRoute(
         path: '/',
         name: RouteName.main,
         builder: (context, state) {
@@ -85,6 +99,12 @@ GoRouter router(dynamic authenticationBloc) {
                       }
                       return StartWorkoutPage(workout: workout!);
                     },
+                  ),
+                  GoRoute(
+                    path: 'personalInfo',
+                    name: RouteName.personalInfo,
+                    parentNavigatorKey: rootNavigatorKey,
+                    builder: (context, state) => PersonalInfoPage(),
                   ),
                 ],
               ),
