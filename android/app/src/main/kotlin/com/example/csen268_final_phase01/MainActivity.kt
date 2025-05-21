@@ -1,4 +1,4 @@
-package com.example.csen268_final_phase01
+package com.csen268.s25.g4
 
 import io.flutter.embedding.android.FlutterActivity
 
