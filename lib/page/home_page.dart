@@ -1,6 +1,7 @@
 import 'package:csen268_final_phase01/model/workout.dart';
 import 'package:csen268_final_phase01/navigation/router.dart';
 import 'package:csen268_final_phase01/widgets/workout_card.dart';
+import 'package:csen268_final_phase01/widgets/workout_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 // import '../component/workout_card.dart';
@@ -89,6 +90,7 @@ class HomePage extends StatelessWidget {
                       )
                       .toList(),
             ),
+            // WorkoutTimer(),
           ],
         ),
       ),
