@@ -22,7 +22,14 @@ class _LogPageState extends State<LogPage> {
             firstDay: DateTime.utc(2025, 1, 1), // set to be this year
             lastDay: DateTime.utc(2030, 12, 31),
             focusedDay: DateTime.now(),
-            calendarFormat: CalendarFormat.month,
+            headerStyle: HeaderStyle(
+              // disable the changing format button
+              formatButtonVisible: false,
+              titleTextStyle: const TextStyle(fontSize: 21),
+            ),
+            calendarStyle: CalendarStyle(
+              defaultTextStyle: TextStyle(color: Colors.white),
+            ),
             selectedDayPredicate: (day) {
               return isSameDay(_selectedDay, day);
             },
