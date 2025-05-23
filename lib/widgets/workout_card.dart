@@ -27,7 +27,7 @@ class WorkoutCard extends StatelessWidget {
               ),
             ),
             SizedBox(height: 15.0),
-            Icon(Icons.check, color: Colors.black, size: 40),
+            // Icon(Icons.check, color: Colors.black, size: 40),
           ],
         ),
       ),

@@ -1,12 +1,8 @@
 import 'package:csen268_final_phase01/bloc/authentication_bloc.dart';
-import 'package:csen268_final_phase01/bloc/notification_bloc/notifications_bloc.dart';
 import 'package:csen268_final_phase01/firebase_options.dart';
-import 'package:csen268_final_phase01/messaging_page.dart';
-import 'package:csen268_final_phase01/repositories/authentication/authentication.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_app_installations/firebase_app_installations.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:firebase_in_app_messaging/firebase_in_app_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'navigation/router.dart';
@@ -45,16 +41,17 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   MyApp({super.key});
+  final authenticationBloc = AuthenticationBloc();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      routerConfig: router(AuthenticationBloc),
+      routerConfig: router(authenticationBloc),
       theme: ThemeData(
-        scaffoldBackgroundColor: const Color(0xFF3B3B3B), // 深色背景
-        primaryColor: const Color(0xFFFF9100), // 橙色主色调
-        // cardColor: const Color(0xFF3C3C3C), // 卡片背景
+        scaffoldBackgroundColor: const Color(0xFF3B3B3B),
+        primaryColor: const Color(0xFFFF9100),
+        // cardColor: const Color(0xFF3C3C3C),
         textTheme: const TextTheme(
           titleLarge: TextStyle(
             fontSize: 24,
@@ -92,7 +89,6 @@ class MyApp extends StatelessWidget {
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(foregroundColor: Color(0xFFFF9100)),
         ),
-
         appBarTheme: const AppBarTheme(
           backgroundColor: Color(0xFF3B3B3B),
           elevation: 0,
