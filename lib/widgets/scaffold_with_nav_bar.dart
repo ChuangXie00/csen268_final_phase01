@@ -14,7 +14,6 @@ class ScaffoldWithNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Add personal info button.
     return Scaffold(
       body: child,
       bottomNavigationBar: BottomNavigationBar(

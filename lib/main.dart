@@ -1,16 +1,40 @@
 import 'package:csen268_final_phase01/bloc/authentication_bloc.dart';
+import 'package:csen268_final_phase01/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_app_installations/firebase_app_installations.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'navigation/router.dart';
 
-import 'package:hive_flutter/hive_flutter.dart';
-import 'model/user.dart';
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  print("Handling a background message: ${message.messageId}");
+  print('Message data: ${message.data}');
+  print('Message notification: ${message.notification?.title}');
+  print('Message notification: ${message.notification?.body}');
+}
 
 void main() async {
-  // WidgetsFlutterBinding.ensureInitialized();
-  // await Hive.initFlutter();
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  print(await FirebaseInstallations.instance.getId());
 
-  // Hive.registerAdapter(UserAdapter()); // 注册user.g.dart生成的adapter
-  // await Hive.openBox<User>('users'); // 打开User数据的box
+  final messaging = FirebaseMessaging.instance;
+  final settings = await messaging.requestPermission(
+    alert: true,
+    announcement: false,
+    badge: true,
+    carPlay: false,
+    criticalAlert: false,
+    provisional: false,
+    sound: true,
+  );
+  const vapidKey =
+      "BAwqUpTRd9APhrXMnrCzukQSZWKTO4pH7VOdn5JJX5s0VmpmCQOCYtIadAnPkKOBlQTndBkc91uj74R0BWJjid8";
+  String? token;
+
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   runApp(MyApp());
 }
@@ -25,9 +49,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routerConfig: router(authenticationBloc),
       theme: ThemeData(
-        scaffoldBackgroundColor: const Color(0xFF3B3B3B), // 深色背景
-        primaryColor: const Color(0xFFFF9100), // 橙色主色调
-        // cardColor: const Color(0xFF3C3C3C), // 卡片背景
+        scaffoldBackgroundColor: const Color(0xFF3B3B3B),
+        primaryColor: const Color(0xFFFF9100),
+        // cardColor: const Color(0xFF3C3C3C),
         textTheme: const TextTheme(
           titleLarge: TextStyle(
             fontSize: 24,
@@ -65,7 +89,6 @@ class MyApp extends StatelessWidget {
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(foregroundColor: Color(0xFFFF9100)),
         ),
-
         appBarTheme: const AppBarTheme(
           backgroundColor: Color(0xFF3B3B3B),
           elevation: 0,
