@@ -27,8 +27,19 @@ class _LogPageState extends State<LogPage> {
               formatButtonVisible: false,
               titleTextStyle: const TextStyle(fontSize: 21),
             ),
+            daysOfWeekStyle: DaysOfWeekStyle(
+              weekdayStyle: TextStyle(color: Colors.white),
+              weekendStyle: TextStyle(color: Color(0xFF6A6A6A)),
+            ),
             calendarStyle: CalendarStyle(
-              defaultTextStyle: TextStyle(color: Colors.white),
+              selectedDecoration: BoxDecoration(
+                color: Colors.orange,
+                shape: BoxShape.circle,
+              ),
+              todayDecoration: BoxDecoration(
+                color: Colors.amber,
+                shape: BoxShape.circle,
+              ),
             ),
             selectedDayPredicate: (day) {
               return isSameDay(_selectedDay, day);
